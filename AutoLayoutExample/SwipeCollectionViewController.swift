@@ -8,9 +8,17 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "PageCellId"
 
 class SwipeCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    var pageModels = [
+        PageModel(image: #imageLiteral(resourceName: "icon-lifeform1"), headerText: "Welcome to Nodejs tutorials"),
+        PageModel(image: #imageLiteral(resourceName: "icon-lifeform2"), headerText: "React Native tutorials"),
+        PageModel(image: #imageLiteral(resourceName: "icon-lifeform3"), headerText: "Vue.js tutorials"),
+        PageModel(image: #imageLiteral(resourceName: "icon-lifeform4"), headerText: "Swift 4 tutorials"),
+        PageModel(image: #imageLiteral(resourceName: "icon-lifeform5"), headerText: "Angular 5 tutorials"),
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +29,12 @@ class SwipeCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return pageModels.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PageCollectionViewCell
-        //cell.backgroundColor = indexPath.item % 2 == 0 ? .red : .green
+        cell.pageModel = pageModels[indexPath.item]
         return cell
     }
 

@@ -10,19 +10,27 @@ import UIKit
 
 class PageCollectionViewCell: UICollectionViewCell {
     
-    let topHalfView: UIView = {
+    var pageModel: PageModel? {
+        didSet {
+            lifeFromImageView.image = pageModel?.image
+            titleTextView.text = pageModel?.headerText ?? ""
+            //titleTextView.textAlignment = .center
+        }
+    }
+    
+    private let topHalfView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let lifeFromImageView:UIImageView = {
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "icon-lifeform"))
+    private let lifeFromImageView:UIImageView = {
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    let titleTextView: UITextView = {
+    private let titleTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont.boldSystemFont(ofSize: 18)
