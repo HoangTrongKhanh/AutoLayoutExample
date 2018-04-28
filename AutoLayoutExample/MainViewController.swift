@@ -34,10 +34,36 @@ class MainViewController: UIViewController {
         return textView
     }()
 
+    let previousButton:UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Previous", for: .normal)
+        button.setTitleColor(.red, for: .normal)
+        return button
+    }()
+    
+    let pageControl:UIPageControl = {
+        let pageCtr = UIPageControl()
+        pageCtr.translatesAutoresizingMaskIntoConstraints = false
+        pageCtr.currentPage = 0
+        pageCtr.numberOfPages = 5
+        pageCtr.currentPageIndicatorTintColor = .red
+        pageCtr.pageIndicatorTintColor = .gray
+        return pageCtr
+    }()
+    
+    let nextButton:UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Next", for: .normal)
+        button.setTitleColor(.red, for: .normal)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         autoLayoutUI()
-        
+        layoutBottomButton()
     }
     
     fileprivate func autoLayoutUI() {
@@ -60,5 +86,23 @@ class MainViewController: UIViewController {
         titleTextView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         titleTextView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         titleTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+    }
+    
+    fileprivate func layoutBottomButton() {
+        view.addSubview(previousButton)
+        view.addSubview(pageControl)
+        view.addSubview(nextButton)
+        let bottomStackView = UIStackView(arrangedSubviews: [previousButton, pageControl, nextButton])
+        view.addSubview(bottomStackView)
+        bottomStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            //add SafetyArea
+            bottomStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            bottomStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            bottomStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            bottomStackView.heightAnchor.constraint(equalToConstant: 50)])
+        bottomStackView.distribution = .fillEqually
+        bottomStackView.axis = .horizontal
+        
     }
 }
